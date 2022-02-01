@@ -11,7 +11,7 @@ export default function App() {
   const[time, SetTime]= useState(1);
   const [gender,setGender]= useState("");
   const[alcoholLevel, setAlcoholLevel]= useState(null);
-  const [color, setColor]= useState('')
+  const [color, setColor]= useState('black')
 
 /* this is just a test  for github update*/ 
   const allBottle=[
@@ -63,6 +63,7 @@ export default function App() {
         else if (gender==='female'){
           
             let result= leftGram/(weight*0.6);
+            changeColor(result);
             setAlcoholLevel(result.toFixed(2));
             
           
@@ -75,14 +76,17 @@ export default function App() {
   }
 
   function changeColor(result){
-    if(result>0 && result<=0.2){
+    if(result>0 && result<=0.25){
       setColor('green')
     }
-    else if(result>0.2 && result<=0.6){
+    else if(result>0.25 && result<=0.6){
       setColor('gold');
     }
     else if(result>0.6) {
       setColor('red');
+    }
+    else{
+      setColor('black')
     }
   }
  
