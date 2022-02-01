@@ -12,7 +12,7 @@ export default function App() {
   const [gender,setGender]= useState("male")
   const[density, setDensty]= useState(0);
 
-
+/* this is just a test  for github update*/ 
   const allBottle=[
     {label:'1 Bottle', value:1},
     {label:'2 Bottles', value:2},
@@ -36,7 +36,7 @@ export default function App() {
     <View style={styles.container}>
       
       <Text style={[styles.header,
-      {marginLeft:100}]}>Alcometer</Text>
+      ]}>Alcometer</Text>
       
       <Text style={styles.boldText}>Weight</Text>
       <TextInput value={weight}
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     marginBottom:15,
     color: '#2196F3', // RGB of react native button-color for android
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   boldText:{
     fontWeight: 'bold'
