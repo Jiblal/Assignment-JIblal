@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button,ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import RadioForm, {RadioButton, RadioButtonInput, } from 'react-native-simple-radio-button';
-import { Button } from 'react-native-web';
+import styles from './styles/Style';
+import Radiobutton from './compents/RadioButton';
 
 
 export default function App() {
   const [weight, setWeight]= useState("");
   const[bottle, setbottle]=useState(1);
   const[time, SetTime]= useState(1);
-  const [gender,setGender]= useState("male")
-  const[density, setDensty]= useState(0);
+  const [gender,setGender]= useState("");
+  const[alcoholLevel, setAlcoholLevel]= useState(null);
+  const [color, setColor]= useState('')
 
 /* this is just a test  for github update*/ 
   const allBottle=[
@@ -19,6 +20,11 @@ export default function App() {
     {label:'3 Bottles', value:3},
     {label:'4 Bottles', value:4},
     {label:'5 Bottles', value:5},
+    {label:'6 Bottles', value:6},
+    {label:'7 Bottles', value:7},
+    {label:'8 Bottles', value:8},
+    
+    
   ];
   const selectTime=[
     {label:'1 Hour', value:1},
@@ -26,30 +32,81 @@ export default function App() {
     {label:'3 Hours', value:3},
     {label:'4 Hours', value:4},
     {label:'5 Hours', value:5},
+    {label:'6 Hours', value:6},
+    {label:'7 Hours', value:7},
+    {label:'8 Hours', value:8},
+    
   ];
   const genders = [
     {label:'Male', value:'male'},
     {label:'Female', value:'female'}
-  ]
+  ];
+
+  function calculate(){
+    if(weight===""){
+      alert('Enter your Weight')
+    }
+    else if(weight !="" && weight!= 0){
+      let litres=bottle*0.33;
+      let grams =litres*8*4.5;
+      let buring =weight/10;
+      let leftGram = grams- buring*time;
+      if(leftGram>0){
+        if(gender==='male'){
+          
+            let result= leftGram/(weight*0.7);
+            changeColor(result);
+            setAlcoholLevel(result.toFixed(2));
+          }
+          
+        
+        else if (gender==='female'){
+          
+            let result= leftGram/(weight*0.6);
+            setAlcoholLevel(result.toFixed(2));
+            
+          
+        }
+      } else setAlcoholLevel(0)
+    }
+   
+    
+     
+  }
+
+  function changeColor(result){
+    if(result>0 && result<=0.2){
+      setColor('green')
+    }
+    else if(result>0.2 && result<=0.6){
+      setColor('gold');
+    }
+    else if(result>0.6) {
+      setColor('red');
+    }
+  }
+ 
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       
-      <Text style={[styles.header,
-      ]}>Alcometer</Text>
+      <Text style={styles.header}>Alcometer</Text>
       
       <Text style={styles.boldText}>Weight</Text>
       <TextInput value={weight}
+       style={styles.input}
        onChangeText={(text)=> setWeight(text)}
        placeholder='Enter Weight' 
-       keyboardType='decimal-pad'/>
+       keyboardType='number-pad'/>
+      
+       
       <Text style={styles.boldText}>Bootles</Text>
       <Picker
         selectedValue={bottle}
         onValueChange={(itemvalue)=> setbottle(itemvalue)}
         >
         {allBottle.map((bottle)=>(
-          <Picker.Item label={bottle.label} value={bottle.value}  ></Picker.Item>
+          <Picker.Item key={bottle.value} label={bottle.label} value={bottle.value}  ></Picker.Item>
         )          
         )}
       </Picker>
@@ -59,23 +116,22 @@ export default function App() {
         onValueChange={(itemvalue)=> SetTime(itemvalue)}
         >
         {selectTime.map((time)=>(
-          <Picker.Item label={time.label} value={time.value}  ></Picker.Item>
+          <Picker.Item key={time.value} label={time.label} value={time.value}  ></Picker.Item>
         )          
         )}
       </Picker>
-      <Text>Gender</Text>
-      <RadioForm
-          radio_props={genders}
-          onPress={(value)=> (setGender(value))}
-          
-          />
-      <Text>{density}</Text>
-      <Button title='calculate'/>
-    </View>
+      <Text style={styles.boldText}>Gender</Text>
+      <Radiobutton
+      options={genders}
+      onPress={(value)=> setGender(value) }
+      style={{color:'blue'}}/>
+      <Text style={[styles.result,{color:color}]}>{alcoholLevel}</Text>
+      <Button onPress={calculate} title='calculate'/>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -95,4 +151,4 @@ const styles = StyleSheet.create({
   boldText:{
     fontWeight: 'bold'
   }
-});
+}); */
