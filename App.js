@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button,ScrollView } from 'react-native';
+import { Text,  TextInput, Button,ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './styles/Style';
 import Radiobutton from './compents/RadioButton';
@@ -68,7 +68,10 @@ export default function App() {
             
           
         }
-      } else setAlcoholLevel(0)
+      } else {
+        setAlcoholLevel(0)
+        changeColor(0); // To prevent previous color state when alcohol level get negative.
+      }
     }
    
     
@@ -76,7 +79,7 @@ export default function App() {
   }
 
   function changeColor(result){
-    if(result>0 && result<=0.25){
+    if(result>=0 && result<=0.25){
       setColor('green')
     }
     else if(result>0.25 && result<=0.6){
