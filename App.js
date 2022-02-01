@@ -138,24 +138,3 @@ export default function App() {
   );
 }
 
-/* const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop:30,
-    marginLeft:5
-  },
-  body:{
-    justifyContent: 'flex-start',
-  },
-  header:{
-    fontSize:30,
-    marginBottom:15,
-    color: '#2196F3', // RGB of react native button-color for android
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  boldText:{
-    fontWeight: 'bold'
-  }
-}); */
