@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Text,  TextInput, Button,ScrollView } from 'react-native';
+import { Text,  TextInput, Button,ScrollView, Alert  } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './styles/Style';
 import Radiobutton from './compents/RadioButton';
+import { View } from 'react-native-web';
 
 
 export default function App() {
@@ -44,7 +45,7 @@ export default function App() {
 
   function calculate(){
     if(weight===""){
-      alert('Enter your Weight')
+      createAlert()
     }
     else if(weight !="" && weight!= 0){
       let litres=bottle*0.33;
@@ -76,6 +77,9 @@ export default function App() {
    
     
      
+  }
+  function createAlert(){
+    Alert.alert("Warning!!!","Enter your Weight")
   }
 
   function changeColor(result){
@@ -133,8 +137,10 @@ export default function App() {
       onPress={(value)=> setGender(value) }
       style={{color:'blue'}}/>
       <Text style={[styles.result,{color:color}]}>{alcoholLevel}</Text>
-      <Button onPress={calculate} title='calculate'/>
+      <Button  onPress={calculate} title='calculate'/>
+      
     </ScrollView>
+    
   );
 }
 

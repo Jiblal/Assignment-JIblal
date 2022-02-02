@@ -1,10 +1,14 @@
 import { StyleSheet } from "react-native";
+import Constants from 'expo-constants';
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
-      marginTop:30,
-      marginLeft:5
+      paddingTop:Constants.statusBarHeight,
+      backgroundColor: '#Ffffff',
+      paddingRight:5,
+      paddingLeft:5,
+     
+      
     },
     body:{
       justifyContent: 'flex-start',
@@ -22,7 +26,8 @@ export default StyleSheet.create({
     result:{
         fontSize:25,
         fontWeight:'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom:20,
     },
     input:{
         paddingLeft:10
@@ -51,14 +56,15 @@ export default StyleSheet.create({
         width:28,
         borderRadius:15,
         borderWidth:2,
-        borderColor:'#000',
+        borderColor:'#183693',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        
     },
     checkedCircle:{
         width:15,
         height:15,
         borderRadius:7,
-        backgroundColor:'#000',
+        backgroundColor:'#183693',
     }
   });
