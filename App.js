@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { Text,  TextInput, Button,ScrollView, Alert  } from 'react-native';
+import { Text,  TextInput, Button,ScrollView, Alert, View  } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './styles/Style';
 import Radiobutton from './compents/RadioButton';
-import { View } from 'react-native-web';
-
 
 export default function App() {
   const [weight, setWeight]= useState("");
@@ -44,7 +42,8 @@ export default function App() {
   ];
 
   function calculate(){
-    if(weight===""){
+    if(weight==="" || isNaN(weight)){
+      console.log('This is not a number'+ isNaN(weight))
       createAlert()
     }
     else if(weight !="" && weight!= 0){
@@ -79,7 +78,14 @@ export default function App() {
      
   }
   function createAlert(){
-    Alert.alert("Warning!!!","Enter your Weight")
+    // this is supported by mobile only for web Version we can simply use alert() function
+    if(isNaN(weight)){
+      Alert.alert("Warning!!!","Enter your Weight in Number \n for Example: 24") 
+    }
+    else{
+      Alert.alert("Warning!!!","Enter your Weight")
+    }
+  
   }
 
   function changeColor(result){
@@ -99,47 +105,45 @@ export default function App() {
  
 
   return (
-    <ScrollView style={styles.container}>
-      
-      <Text style={styles.header}>Alcometer</Text>
-      
-      <Text style={styles.boldText}>Weight</Text>
-      <TextInput value={weight}
-       style={styles.input}
-       onChangeText={(text)=> setWeight(text)}
-       placeholder='Enter Weight' 
-       keyboardType='number-pad'/>
-      
-       
-      <Text style={styles.boldText}>Bootles</Text>
-      <Picker
-        selectedValue={bottle}
-        onValueChange={(itemvalue)=> setbottle(itemvalue)}
-        >
-        {allBottle.map((bottle)=>(
-          <Picker.Item key={bottle.value} label={bottle.label} value={bottle.value}  ></Picker.Item>
-        )          
-        )}
-      </Picker>
-      <Text style={styles.boldText}>Time</Text>
-      <Picker
-        selectedValue={time}
-        onValueChange={(itemvalue)=> SetTime(itemvalue)}
-        >
-        {selectTime.map((time)=>(
-          <Picker.Item key={time.value} label={time.label} value={time.value}  ></Picker.Item>
-        )          
-        )}
-      </Picker>
-      <Text style={styles.boldText}>Gender</Text>
-      <Radiobutton
-      options={genders}
-      onPress={(value)=> setGender(value) }
-      style={{color:'blue'}}/>
-      <Text style={[styles.result,{color:color}]}>{alcoholLevel}</Text>
-      <Button  onPress={calculate} title='calculate'/>
-      
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView >
+        <Text style={styles.header}>Alcometer</Text>
+        <Text style={styles.boldText}>Weight</Text>
+        <TextInput value={weight}
+          style={styles.input}
+          onChangeText={(text)=> setWeight(text)}
+          placeholder='Enter Weight' 
+          keyboardType='number-pad'/>
+        <Text style={styles.boldText}>Bootles</Text>
+        <Picker
+          selectedValue={bottle}
+          onValueChange={(itemvalue)=> setbottle(itemvalue)}
+          >
+          {allBottle.map((bottle)=>(
+            <Picker.Item key={bottle.value} label={bottle.label} value={bottle.value}  ></Picker.Item>
+          )          
+          )}
+        </Picker>
+        <Text style={styles.boldText}>Time</Text>
+        <Picker
+          selectedValue={time}
+          onValueChange={(itemvalue)=> SetTime(itemvalue)}
+          >
+          {selectTime.map((time)=>(
+            <Picker.Item key={time.value} label={time.label} value={time.value}  ></Picker.Item>
+          )          
+          )}
+        </Picker>
+        <Text style={styles.boldText}>Gender</Text>
+        <Radiobutton
+          options={genders}
+          onPress={(value)=> setGender(value) }
+          style={{color:'blue'}}/>
+        <Text style={[styles.result,{color:color}]}>{alcoholLevel}</Text>
+        <Button  onPress={calculate} title='calculate'/>
+      </ScrollView>
+      <Text style={{fontSize:7}}> Developed by Jiblal Paudel</Text>
+    </View>
     
   );
 }
